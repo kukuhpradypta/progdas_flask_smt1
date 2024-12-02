@@ -17,4 +17,7 @@ def create_app():
     from app.home import home as home_blueprint
     app.register_blueprint(home_blueprint)
 
+    from app.list import list as list_blueprint
+    app.register_blueprint(list_blueprint)
+
     return app
