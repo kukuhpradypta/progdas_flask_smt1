@@ -1,1 +1,4 @@
 app/api/db_connection.py
+venv/
+
+  git config --global user.name "Your Name"
