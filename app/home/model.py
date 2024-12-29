@@ -69,7 +69,7 @@ class TaskManager:
         return [
             {
                 "id": task.id,
-                "category": task.__class__.__name__.replace("Task", ""),
+                "category": task.__class__.__name__.replace("Task", ""), # untuk mendapatkan nama class lalu replace string Task dengan string kosong
                 "title": task.title,
                 "deadline": task.deadline,
                 "priority": task.priority
