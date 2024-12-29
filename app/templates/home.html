@@ -1,10 +1,230 @@
-{% extends "template.html" %}
-{% block body %}
-<div>
-    <h1>Test Jquery</h1>
-    <div class="mb-3">
-        <label class="form-label">User Name</label>
-        <input type="text" class="form-control" name="username" id="username">
+{% extends "template.html" %} {% block body %}
+<main>
+  <div
+    class="modal fade"
+    id="newTask"
+    tabindex="-1"
+    aria-labelledby="newTaskLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 font-semibold" id="newTaskLabel">
+            New Task
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="title" class="col-form-label font-medium"
+                >Title<span class="text-rose-500">*</span></label
+              >
+              <input type="text" class="form-control" id="title" required />
+            </div>
+            <div class="mb-3">
+              <label for="note" class="col-form-label font-medium"
+                >Note</label
+              >
+              <textarea
+                id="note"
+                class="form-control"
+                rows="4"
+              ></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="deadline" class="col-form-label font-medium"
+                >Deadline<span class="text-rose-500">*</span></label
+              >
+              <input type="date" class="form-control" id="deadline" required />
+            </div>
+            <div class="mb-3">
+              <label for="priority" class="col-form-label font-medium"
+                >Priority Urgency<span class="text-rose-500">*</span></label
+              >
+              <select class="form-select" id="priority" required>
+                <option selected>Select One</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="w-full bg-emerald-600 text-white font-medium pt-1 pb-1.5 px-3 rounded-md"
+          >
+            Save Now
+          </button>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+  <div
+    class="modal fade"
+    id="updateTask"
+    tabindex="-1"
+    aria-labelledby="updateTaskLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5 font-semibold" id="newTaskLabel">
+            Update Current Task
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="title" class="col-form-label font-medium"
+                >Title<span class="text-rose-500">*</span></label
+              >
+              <input type="text" class="form-control" id="title" required />
+            </div>
+            <div class="mb-3">
+              <label for="note" class="col-form-label font-medium"
+                >Note</label
+              >
+              <textarea
+                id="note"
+                class="form-control"
+                rows="4"
+              ></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="deadline" class="col-form-label font-medium"
+                >Deadline<span class="text-rose-500">*</span></label
+              >
+              <input type="date" class="form-control" id="deadline" required />
+            </div>
+            <div class="mb-3">
+              <label for="priority" class="col-form-label font-medium"
+                >Priority Urgency<span class="text-rose-500">*</span></label
+              >
+              <select class="form-select" id="priority" required>
+                <option selected>Select One</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="w-full bg-emerald-600 text-white font-medium pt-1 pb-1.5 px-3 rounded-md"
+          >
+            Save Now
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-[90%] sm:max-w-[80%] font-sans mx-auto">
+    <center>
+      <h1 class="text-3xl font-bold mt-8 mb-6">Task Management System</h1>
+      <button
+        type="button"
+        class="flex items-center gap-1.5 bg-emerald-600 text-white font-semibold outline-none py-1.5 pl-4 pr-5 rounded-lg"
+        data-bs-toggle="modal"
+        data-bs-target="#newTask"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" viewBox="0 0 24 24">
+          <path
+            fill="currentColor"
+            d="M11 16h2v-3h3v-2h-3V8h-2v3H8v2h3zm1 6q-.4 0-.763-.137t-.637-.438l-7.975-8q-.275-.3-.45-.663T2 12t.175-.763t.45-.637l7.975-8q.3-.3.65-.45T12 2t.775.15t.65.45l7.95 8q.275.3.45.65T22 12t-.162.763t-.463.662l-7.95 8q-.275.275-.65.425T12 22"
+          />
+        </svg>
+        Add Task
+      </button>
+    </center>
+    <div class="w-1/4 mt-8 mb-7">
+      <label for="priority" class="col-form-label font-medium"
+        >Priority Urgency</label
+      >
+      <select class="form-select" id="priority" required>
+        <option value="" selected>All</option>
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
+    </div>
+    <div class="relative overflow-x-auto pb-4">
+      <table
+        id="homeTable"
+        class="table-striped table-bordered w-full min-w-[800px] text-left"
+      >
+        <thead>
+          <tr>
+            <th class="text-center">No.</th>
+            <th class="text-start">Title</th>
+            <th class="text-start">Note</th>
+            <th class="text-start">Deadline</th>
+            <th class="text-start">Priority</th>
+            <th class="text-center">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-center">1</td>
+            <td>Cleaning House</td>
+            <td>-</td>
+            <td>29 Desember 2024</td>
+            <td>High</td>
+            <td>
+              <div class="flex justify-center items-center gap-2">
+                <button
+                  class="bg-orange-400 text-white p-1 rounded-md outline-none"
+                  data-bs-toggle="modal"
+                  data-bs-target="#updateTask"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M4.808 20q-.343 0-.576-.232T4 19.192v-1.04q0-.332.13-.632t.349-.518L17.18 4.287q.153-.137.339-.212T17.907 4t.39.064t.35.228l1.067 1.074q.165.159.226.35q.06.19.06.38q0 .204-.068.39q-.069.185-.218.339L6.998 19.521q-.217.218-.518.348T5.848 20zM17.504 7.589L19 6.111L17.889 5l-1.477 1.496z"
+                    />
+                  </svg>
+                </button>
+                <button
+                  class="deleteTask bg-rose-500 text-white p-1 rounded-md outline-none"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
 {% endblock %}
