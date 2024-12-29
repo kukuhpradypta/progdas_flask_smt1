@@ -1,17 +1,59 @@
-from flask import jsonify, request, json, session, redirect
+from flask import jsonify, request, Blueprint
+from .model import TaskManager, WorkTask, StudyTask, RoutineTask
 
-# from app.api.db_service import execute_query
 from . import home
+manager = TaskManager()
 
-
-@home.route('/api/home/getTest', methods=['GET'])
-def getTest():
+@home.route('/api/tasks/add', methods=['POST'])
+def add_task():
     try:
-        # select_country = """
-        #     SELECT * from table;
-        #     """
-        # country_result = execute_query(select_country, 'db1')
-        return jsonify({"status": "ok", "output": "HOME"}), 200
-        
+        data = request.get_json()
+        title = data['title']
+        deadline = data['deadline']
+        priority = data['priority']
+        category = data['category'].lower()
+
+        if category == "work":
+            task = WorkTask(None, title, deadline, priority)
+        elif category == "study":
+            task = StudyTask(None, title, deadline, priority)
+        elif category == "routine":
+            task = RoutineTask(None, title, deadline, priority)
+        else:
+            return jsonify({"status": "failed", "message": "Invalid category!"}), 400
+
+        manager.add_task(task)
+        return jsonify({"status": "success", "message": "Task added successfully!"}), 201
+
     except Exception as err:
-        return jsonify({"status": "failed", "message": str(err)}), 200
+        return jsonify({"status": "failed", "message": str(err)}), 500
+
+@home.route('/api/tasks/remove', methods=['DELETE'])
+def remove_task():
+    try:
+        data = request.get_json()
+        id = data['id']
+
+        if manager.remove_task(id):
+            return jsonify({"status": "success", "message": "Task removed successfully!"}), 200
+        else:
+            return jsonify({"status": "failed", "message": "Task not found!"}), 404
+
+    except Exception as err:
+        return jsonify({"status": "failed", "message": str(err)}), 500
+
+@home.route('/api/tasks/all', methods=['GET'])
+def get_all_tasks():
+    try:
+        tasks = manager.get_all_tasks()
+        return jsonify({"status": "success", "tasks": tasks}), 200
+    except Exception as err:
+        return jsonify({"status": "failed", "message": str(err)}), 500
+
+@home.route('/api/tasks/upcoming', methods=['GET'])
+def get_upcoming_tasks():
+    try:
+        tasks = manager.upcoming_tasks()
+        return jsonify({"status": "success", "tasks": tasks}), 200
+    except Exception as err:
+        return jsonify({"status": "failed", "message": str(err)}), 500
