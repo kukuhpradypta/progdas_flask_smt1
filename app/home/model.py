@@ -3,9 +3,10 @@ from datetime import datetime
 
 # Abstract class
 class Task(ABC):
-    def __init__(self, id, title, deadline, priority):
+    def __init__(self, id, title, note, deadline, priority):
         self.id = id
         self.title = title
+        self.note = note
         self.deadline = deadline
         self.priority = priority
 
@@ -16,15 +17,15 @@ class Task(ABC):
 # Subclasses
 class WorkTask(Task):
     def display_task(self):
-        return f"[WORK] {self.title} | Deadline: {self.deadline} | Priority: {self.priority}"
+        return f"[WORK] {self.title} | Note: {self.note} | Deadline: {self.deadline} | Priority: {self.priority}"
 
 class StudyTask(Task):
     def display_task(self):
-        return f"[STUDY] {self.title} | Deadline: {self.deadline} | Priority: {self.priority}"
+        return f"[STUDY] {self.title} | Note: {self.note} | Deadline: {self.deadline} | Priority: {self.priority}"
 
 class RoutineTask(Task):
     def display_task(self):
-        return f"[ROUTINE] {self.title} | Deadline: {self.deadline} | Priority: {self.priority}"
+        return f"[ROUTINE] {self.title} | Note: {self.note} | Deadline: {self.deadline} | Priority: {self.priority}"
 
 # Task Manager class
 class TaskManager:
@@ -57,6 +58,7 @@ class TaskManager:
                 "id": task.id,
                 "category": task.__class__.__name__.replace("Task", ""),
                 "title": task.title,
+                "note": task.note,
                 "deadline": task.deadline,
                 "priority": task.priority
             }
@@ -71,6 +73,7 @@ class TaskManager:
                 "id": task.id,
                 "category": task.__class__.__name__.replace("Task", ""),  # Mendapatkan nama class
                 "title": task.title,
+                "note": task.note,
                 "deadline": task.deadline,
                 "priority": task.priority
             }
@@ -80,16 +83,16 @@ class TaskManager:
     
     def priority_tasks(self, priority):
         """Mengembalikan tasks yang deadline-nya lebih dari waktu saat ini dan sesuai priority."""
-        now = datetime.now()
         filtered_tasks = [
             {
                 "id": task.id,
                 "category": task.__class__.__name__.replace("Task", ""),  # Mendapatkan nama class
                 "title": task.title,
+                "note": task.note,
                 "deadline": task.deadline,
                 "priority": task.priority
             }
             for task in self.tasks
-            if datetime.strptime(task.deadline, '%Y-%m-%d') > now and (priority == "all" or task.priority.lower() == priority.lower())
+            if (priority == "all" or task.priority.lower() == priority.lower())
         ]
         return filtered_tasks

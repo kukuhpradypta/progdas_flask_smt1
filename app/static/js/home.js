@@ -33,7 +33,8 @@ function getTask(type) {
           return json.tasks.map((task, index) => ({
             no: index + 1,
             title: task.title,
-            note: '-',
+            note: task.note,
+            category: task.category,
             deadline: new Date(task.deadline).toLocaleDateString(),
             priority: task.priority,
             action: `
@@ -62,7 +63,7 @@ function getTask(type) {
         }
       },
     },
-    columns: [{ data: 'no', className: 'text-center' }, { data: 'title' }, { data: 'note' }, { data: 'deadline' }, { data: 'priority' }, { data: 'action', className: 'text-center' }],
+    columns: [{ data: 'no', className: 'text-center' }, { data: 'title' }, { data: 'note' }, { data: 'category' }, { data: 'deadline' }, { data: 'priority' }, { data: 'action', className: 'text-center' }],
     drawCallback: function () {
       // Tambahkan event listener pada tombol delete setelah tabel selesai dirender
       $('.deleteTask').on('click', function () {
@@ -77,11 +78,12 @@ $('.modal-footer button').on('click', function () {
   // Ambil data dari form
   const title = $('#title').val();
   const note = $('#note').val();
+  const category = $('#category').val();
   const deadline = $('#deadline').val();
   const priority = $('#priority').val();
 
   // Validasi input
-  if (!title || !deadline || priority === 'Select One') {
+  if (!title || !deadline || priority === 'Select One' || category === 'Select One') {
     alert('Please fill all required fields!');
     return;
   }
@@ -89,9 +91,10 @@ $('.modal-footer button').on('click', function () {
   // Data yang akan dikirim ke API
   const taskData = {
     title: title,
+    note: note,
     deadline: deadline,
     priority: priority,
-    category: 'Work', // Tambahkan kategori default jika tidak ada input kategori
+    category: category,
   };
 
   // Hit API
@@ -107,6 +110,7 @@ $('.modal-footer button').on('click', function () {
         // Bersihkan form
         $('#title').val('');
         $('#note').val('');
+        $('#category').val('Select One');
         $('#deadline').val('');
         $('#priority').val('Select One');
 

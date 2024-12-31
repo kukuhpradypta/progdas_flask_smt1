@@ -18,13 +18,22 @@
               <textarea id="note" class="form-control" rows="4"></textarea>
             </div>
             <div class="mb-3">
+              <label for="category" class="col-form-label font-medium">Category</label>
+              <select class="form-select" id="category" required>
+                <option value="Select One" selected readonly disabled>Select One</option>
+                <option value="work">Work</option>
+                <option value="study">Study</option>
+                <option value="routine">Routine</option>
+              </select>
+            </div>
+            <div class="mb-3">
               <label for="deadline" class="col-form-label font-medium">Deadline<span class="text-rose-500">*</span></label>
               <input type="date" class="form-control" id="deadline" required />
             </div>
             <div class="mb-3">
               <label for="priority" class="col-form-label font-medium">Priority Urgency<span class="text-rose-500">*</span></label>
               <select class="form-select" id="priority" required>
-                <option selected>Select One</option>
+                <option value="Select One" selected readonly disabled>Select One</option>
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
                 <option value="high">High</option>
@@ -73,6 +82,7 @@
             <th class="text-center">No.</th>
             <th class="text-start">Title</th>
             <th class="text-start">Note</th>
+            <th class="text-start">Category</th>
             <th class="text-start">Deadline</th>
             <th class="text-start">Priority</th>
             <th class="text-center">Action</th>

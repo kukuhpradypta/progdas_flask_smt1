@@ -9,16 +9,17 @@ def add_task():
     try:
         data = request.get_json()
         title = data['title']
+        note = data['note']
         deadline = data['deadline']
         priority = data['priority']
         category = data['category'].lower()
 
         if category == "work":
-            task = WorkTask(None, title, deadline, priority)
+            task = WorkTask(None, title, note, deadline, priority)
         elif category == "study":
-            task = StudyTask(None, title, deadline, priority)
+            task = StudyTask(None, title, note, deadline, priority)
         elif category == "routine":
-            task = RoutineTask(None, title, deadline, priority)
+            task = RoutineTask(None, title, note, deadline, priority)
         else:
             return jsonify({"status": "failed", "message": "Invalid category!"}), 400
 
