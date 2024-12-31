@@ -69,10 +69,27 @@ class TaskManager:
         return [
             {
                 "id": task.id,
-                "category": task.__class__.__name__.replace("Task", ""), # untuk mendapatkan nama class lalu replace string Task dengan string kosong
+                "category": task.__class__.__name__.replace("Task", ""),  # Mendapatkan nama class
                 "title": task.title,
                 "deadline": task.deadline,
                 "priority": task.priority
             }
-            for task in self.tasks if datetime.strptime(task.deadline, '%Y-%m-%d %H:%M') > now
+            for task in self.tasks 
+            if datetime.strptime(task.deadline, '%Y-%m-%d') > now  # Gunakan format '%Y-%m-%d'
         ]
+    
+    def priority_tasks(self, priority):
+        """Mengembalikan tasks yang deadline-nya lebih dari waktu saat ini dan sesuai priority."""
+        now = datetime.now()
+        filtered_tasks = [
+            {
+                "id": task.id,
+                "category": task.__class__.__name__.replace("Task", ""),  # Mendapatkan nama class
+                "title": task.title,
+                "deadline": task.deadline,
+                "priority": task.priority
+            }
+            for task in self.tasks
+            if datetime.strptime(task.deadline, '%Y-%m-%d') > now and (priority == "all" or task.priority.lower() == priority.lower())
+        ]
+        return filtered_tasks

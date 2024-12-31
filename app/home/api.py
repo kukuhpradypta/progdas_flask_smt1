@@ -57,3 +57,13 @@ def get_upcoming_tasks():
         return jsonify({"status": "success", "tasks": tasks}), 200
     except Exception as err:
         return jsonify({"status": "failed", "message": str(err)}), 500
+    
+@home.route('/api/tasks/priority', methods=['GET'])
+def get_priority_tasks():
+    try:
+        # Mengambil parameter 'priority' dari query string
+        priority = request.args.get('priority', 'all')  # Default ke 'all' jika tidak ada parameter
+        tasks = manager.priority_tasks(priority)
+        return jsonify({"status": "success", "tasks": tasks}), 200
+    except Exception as err:
+        return jsonify({"status": "failed", "message": str(err)}), 500
