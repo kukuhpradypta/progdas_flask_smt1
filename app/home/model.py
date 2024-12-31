@@ -82,7 +82,7 @@ class TaskManager:
         ]
     
     def priority_tasks(self, priority):
-        """Mengembalikan tasks yang deadline-nya lebih dari waktu saat ini dan sesuai priority."""
+        """Mengembalikan tasks yang sesuai priority."""
         filtered_tasks = [
             {
                 "id": task.id,
