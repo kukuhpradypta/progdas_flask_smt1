@@ -137,7 +137,7 @@ $(".modal-footer button").on("click", function () {
     success: function (response) {
       if (response.status === "success") {
         // alert("Task added successfully!");
-        Swal.fire("Deleted!", "Task added successfully!", "success");
+        Swal.fire("Success!", "Task added successfully!", "success");
 
         // Bersihkan form
         $("#title").val("");
